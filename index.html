@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Letters For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f041a 0%, #1a0a2e 30%, #2a0a4e 70%, #1a0a2e 100%);
+            font-family: 'Open Sans', sans-serif;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 30% 70%, rgba(138, 43, 226, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 70% 30%, rgba(238, 130, 238, 0.1) 0%, transparent 30%);
+            z-index: -2;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 64px;
+            color: white;
+            margin: 20px 0 15px;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(238, 130, 238, 0.7);
+            letter-spacing: 4px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff6b6b, #ff4d4d, #ff6b6b, #ff4d4d, #ff6b6b, transparent);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 26px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            line-height: 1.5;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .envelopes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px auto;
+            max-width: 1200px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            height: 280px;
+            perspective: 1500px;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .envelope:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            z-index: 20;
+        }
+
+        .envelope-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.64, 0, 0.35, 1);
+        }
+
+        .envelope.flipped .envelope-inner {
+            transform: rotateY(180deg);
+        }
+
+        .envelope-front, .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Envelope 1: Birthday - Deep Purple */
+        .envelope:nth-child(1) .envelope-front {
+            background: linear-gradient(145deg, #1a0a2e 0%, #2a0a4e 50%, #1a0a2e 100%);
+            border: 4px solid white;
+        }
+        
+        .envelope:nth-child(1) .flap {
+            background: linear-gradient(145deg, #2a0a4e 0%, #3a0a6e 50%, #2a0a4e 100%);
+            border-top: 4px solid white;
+            border-left: 4px solid white;
+            border-right: 4px solid white;
+        }
+        
+        .envelope:nth-child(1) .seal {
+            background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+            color: #8a2be2;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.5);
+        }
+
+        /* Envelope 2: Valentine's - Ruby Red */
+        .envelope:nth-child(2) .envelope-front {
+            background: linear-gradient(145deg, #3a051a 0%, #5a052a 50%, #3a051a 100%);
+            border: 4px solid #ffd7d7;
+        }
+        
+        .envelope:nth-child(2) .flap {
+            background: linear-gradient(145deg, #5a052a 0%, #7a053a 50%, #5a052a 100%);
+            border-top: 4px solid #ffd7d7;
+            border-left: 4px solid #ffd7d7;
+            border-right: 4px solid #ffd7d7;
+        }
+        
+        .envelope:nth-child(2) .seal {
+            background: linear-gradient(135deg, #ff3366 0%, #cc0033 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.6);
+        }
+
+        /* Envelope 3: Special - Royal Blue */
+        .envelope:nth-child(3) .envelope-front {
+            background: linear-gradient(145deg, #0a1a2e 0%, #0a2a4e 50%, #0a1a2e 100%);
+            border: 4px solid #d4e6ff;
+        }
+        
+        .envelope:nth-child(3) .flap {
+            background: linear-gradient(145deg, #0a2a4e 0%, #0a3a6e 50%, #0a2a4e 100%);
+            border-top: 4px solid #d4e6ff;
+            border-left: 4px solid #d4e6ff;
+            border-right: 4px solid #d4e6ff;
+        }
+        
+        .envelope:nth-child(3) .seal {
+            background: linear-gradient(135deg, #4da6ff 0%, #0066cc 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(77, 166, 255, 0.5);
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 55%;
+            clip-path: polygon(50% 98%, 0 0, 100% 0);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            z-index: 3;
+            transition: transform 0.8s cubic-bezier(0.64, 0, 0.35, 1);
+        }
+
+        .envelope.flipped .flap {
+            transform: rotateX(180deg) translateY(-5px);
+        }
+
+        .seal {
+            position: relative;
+            width: 65px;
+            height: 65px;
+            border: 3px solid white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 26px;
+            z-index: 4;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .seal::after {
+            content: "";
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .tap-instruction {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            width: 100%;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .envelope:hover .tap-instruction {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .envelope-back {
+            background: linear-gradient(135deg, #f8f4ff 0%, #e9e1ff 100%);
+            border: 4px solid white;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        .letter {
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ffffff"/><path d="M20,20 Q40,5 60,20 L80,20 Q95,35 80,50 L80,80 Q65,95 50,80 L20,80 Q5,65 20,50 Z" fill="none" stroke="%23f0e6ff" stroke-width="0.5" opacity="0.5"/></svg>');
+            background-size: 40px 40px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-size: 18px;
+        }
+
+        .letter::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(238, 130, 238, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 75%, rgba(138, 43, 226, 0.08) 0%, transparent 25%);
+            z-index: -1;
+        }
+
+        .letter h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 2px;
+        }
+
+        /* Letter 1: Birthday */
+        .envelope:nth-child(1) .letter h1 { color: #8a2be2; }
+        .envelope:nth-child(1) .letter p { color: #3a0a6e; }
+        .envelope:nth-child(1) .letter .special { color: #0d1475; }
+        .envelope:nth-child(1) .letter .signature { color: #8a2be2; }
+
+        /* Letter 2: Valentine's */
+        .envelope:nth-child(2) .letter h1 { color: #cc0033; }
+        .envelope:nth-child(2) .letter p { color: #5a052a; }
+        .envelope:nth-child(2) .letter .special { color: #480d62; }
+        .envelope:nth-child(2) .letter .signature { color: #cc0033; }
+
+        /* Letter 3: Special */
+        .envelope:nth-child(3) .letter h1 { color: #0066cc; }
+        .envelope:nth-child(3) .letter p { color: #0a2a4e; }
+        .envelope:nth-child(3) .letter .special { color: #4da6ff; }
+        .envelope:nth-child(3) .letter .signature { color: #0066cc; }
+
+        .letter p {
+            line-height: 1.6;
+            margin: 12px 0;
+            max-width: 95%;
+        }
+
+        .letter .special {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            margin: 20px 0;
+            font-weight: normal;
+            line-height: 1.4;
+            padding: 10px 0;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        .letter .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            margin-top: 25px;
+            align-self: flex-end;
+            margin-right: 15%;
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s ease-in-out forwards;
+            opacity: 0.85;
+            z-index: 100;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            25% { transform: translateY(-25px) rotate(8deg); }
+            50% { transform: translateY(-50px) rotate(0deg); opacity: 0.6; }
+            75% { transform: translateY(-25px) rotate(-8deg); }
+            100% { transform: translateY(-80px) rotate(0deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .occasion-tag {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.35);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .envelopes-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .envelope {
+                max-width: 95%;
+                height: 260px;
+                margin-bottom: 25px;
+            }
+            
+            .title {
+                font-size: 48px;
+            }
+            
+            .subtitle {
+                font-size: 22px;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .envelope {
+                height: 240px;
+            }
+            
+            .title {
+                font-size: 50px;
+            }
+            
+            .subtitle {
+                font-size: 25px;
+            }
+            
+            .seal {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+            }
+            
+            .letter h1 {
+                font-size: 34px;
+            }
+            
+            .letter .special {
+                font-size: 24px;
+            }
+            
+            .letter .signature {
+                font-size: 26px;
+                margin-right: 10%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Let my Love reach you...</h1>
+        <p class="subtitle">I love you Surya Teja. I wish you all the Luck to your journey.</p>
+        
+        <div class="envelopes-container">
+            <!-- Envelope 1: Birthday -->
+            <div class="envelope">
+                <div class="occasion-tag">Happy Birthday!</div>
+                <div class="envelope-inner">
+                    <div class="envelope-front">
+                        <div class="flap">
+                            <div class="seal">✨</div>
+                        </div>
+                        <div class="tap-instruction">Open baby</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter">
+                            <h1></h1>
+                            <h2></h2>
+                            <p class="special">Happy birthday na bangaram, hope you remember our beautiful memories and cherish them.</p>
+                            <p>With love always</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Envelope 2: Valentine's -->
+            <div class="envelope">
+                <div class="occasion-tag">Baby boi</div>
+                <div class="envelope-inner">
+                    <div class="envelope-front">
+                        <div class="flap">
+                            <div class="seal">♥</div>
+                        </div>
+                        <div class="tap-instruction">Open love</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter">
+                            <h1>My Dearest Love</h1>
+                           
+                            <p class="special">Every beat of my heart whispers your name, ney Suryaa,You did magic babe,thank you for baring me, love you</p>
+                           
+                            <p class="signature">Forever yours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Envelope 3: Special -->
+            <div class="envelope">
+                <div class="occasion-tag">Nijam chepana,</div>
+                <div class="envelope-inner">
+                    <div class="envelope-front">
+                        <div class="flap">
+                            <div class="seal">💫</div>
+                        </div>
+                        <div class="tap-instruction">Tap to Open</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter">
+                            
+                            
+                            <p class="special">You are stronger than you know, more loved than you realize, and capable of amazing things you haven't even imagined yet.</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hearts" id="hearts"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const envelopes = document.querySelectorAll('.envelope');
+            const heartsContainer = document.getElementById('hearts');
+            
+            // Create floating background hearts
+            function createBackgroundHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♥';
+                
+                // Random properties
+                const size = Math.random() * 20 + 10;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const colors = ['#ff4d4d', '#ff6b6b', '#ff85a2', '#ff9e9e', '#ffb3b3', '#ffcccb', '#d88aff', '#a89cff'];
+                
+                heart.style.fontSize = `${size}px`;
+                heart.style.left = `${left}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.animationDuration = `${Math.random() * 3 + 4}s`;
+                
+                heartsContainer.appendChild(heart);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }
+            
+            // Initial background hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createBackgroundHeart, i * 300);
+            }
+            
+            // Continuous background hearts
+            setInterval(createBackgroundHeart, 600);
+            
+            // Envelope interaction
+            envelopes.forEach(envelope => {
+                envelope.addEventListener('click', (e) => {
+                    // Prevent triggering multiple times during animation
+                    if (envelope.classList.contains('animating')) return;
+                    
+                    envelope.classList.add('animating');
+                    envelope.classList.toggle('flipped');
+                    
+                    // Create heart burst at envelope position
+                    createHeartBurst(envelope);
+                    
+                    // Reset animating class after animation completes
+                    setTimeout(() => {
+                        envelope.classList.remove('animating');
+                    }, 1000);
+                });
+            });
+            
+            // Create heart burst animation
+            function createHeartBurst(envelopeElement) {
+                const rect = envelopeElement.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                // Create multiple hearts
+                for (let i = 0; i < 18; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.className = 'heart';
+                        heart.innerHTML = '♥';
+                        
+                        // Random properties for burst
+                        const size = Math.random() * 25 + 10;
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = Math.random() * 100 + 50;
+                        const colors = ['#ff4d4d', '#ff6b6b', '#ff85a2', '#ffcccb', '#ffd700', '#4da6ff', '#d88aff'];
+                        
+                        // Calculate position
+                        const x = centerX + Math.cos(angle) * distance;
+                        const y = centerY + Math.sin(angle) * distance;
+                        
+                        heart.style.fontSize = `${size}px`;
+                        heart.style.left = `${x}px`;
+                        heart.style.top = `${y}px`;
+                        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                        heart.style.opacity = '1';
+                        heart.style.animation = `float 2.5s ease-out forwards`;
+                        heart.style.zIndex = '1000';
+                        
+                        heartsContainer.appendChild(heart);
+                        
+                        // Remove after animation
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 2600);
+                    }, i * 40);
+                }
+            }
+            
+            // Subtle floating animation for unopened envelopes
+            function floatEnvelopes() {
+                document.querySelectorAll('.envelope:not(.flipped)').forEach((envelope, index) => {
+                    const angle = Date.now() / 2000 + index;
+                    envelope.style.transform = `translateY(${Math.sin(angle) * 3}px)`;
+                });
+                requestAnimationFrame(floatEnvelopes);
+            }
+            
+            floatEnvelopes();
+        });
+    </script>
+</body>
+</html>
